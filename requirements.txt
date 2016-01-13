@@ -10,7 +10,11 @@ SQLAlchemy==1.0.8
 Werkzeug==0.11.3
 alembic==0.8.4
 aniso8601==1.1.0
+flask-marshmallow==0.6.2
+gunicorn==19.4.5
 itsdangerous==0.24
+marshmallow==2.4.2
+marshmallow-sqlalchemy==0.8.0
 psycopg2==2.6.1
 python-dateutil==2.4.2
 python-editor==0.5
