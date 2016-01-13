@@ -14,7 +14,7 @@ parser.add_argument("category_name", type=str, required=True)
 parser.add_argument("rating", type=float, required=True)
 
 
-class RatingBook(Resource):
+class RatingBookRequest(Resource):
     def post(self):
         return rating_book_request()
 

@@ -2,6 +2,7 @@ from flask import Flask
 from db import db
 from api import api
 from ma import ma
+from endpoints.rating import RatingBookRequest
 import os
 
 def create_app(app):
@@ -18,7 +19,7 @@ def create_app(app):
         import models
         db.drop_all()
         db.create_all()
-
+        api.add_resource(RatingBookRequest)
 
 app = Flask(__name__)
 create_app(app)
