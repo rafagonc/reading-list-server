@@ -19,7 +19,7 @@ def create_app(app):
         import models
         db.drop_all()
         db.create_all()
-        api.add_resource(RatingBookRequest)
+        api.add_resource(RatingBookRequest, '/rating')
 
 app = Flask(__name__)
 create_app(app)
