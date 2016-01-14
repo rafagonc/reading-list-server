@@ -14,8 +14,13 @@ def create_app(app):
 
     with app.app_context():
 
-        import models
+        from models.book import Book
+        from models.author import Author
+        from models.rating import Rating
+        from models.category import Category
+
         db.create_all()
+        db.session.commit()
 
         #create endpoints
         app.register_blueprint(endpoints)

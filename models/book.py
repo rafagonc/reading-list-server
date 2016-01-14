@@ -17,15 +17,12 @@ class Book(db.Model):
 
     def __init__(self, name, author_name, category_name):
         self.name = name
-        print name
 
         #author
         if author_name is not None:
             author = find_author_with_name(author_name)
             if author is None:
                 author = Author(author_name)
-
-            print author
             author.books.append(self)
 
         #category
