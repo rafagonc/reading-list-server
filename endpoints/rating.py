@@ -3,8 +3,8 @@ from db import db
 from schemas.book import BookSchema
 from models.rating import Rating
 from models.book import Book
-from queries.book import find_book_with_name
-from red_exceptions import InvalidBookNameException
+from dao.book import find_book_with_name
+from red_exceptions import InvalidBookNameException, InvalidRatingException
 import json
 
 parser = reqparse.RequestParser()
@@ -32,6 +32,9 @@ def rating_book_request_impl(args):
 
         if len(book_name) == 0:
             raise InvalidBookNameException
+
+        if rating < 0 or rating > 5:
+            raise InvalidRatingException
 
         book = find_book_with_name(book_name)
         if (book is None):

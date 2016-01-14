@@ -3,7 +3,8 @@ from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
 from author import Author
 from category import Category
-
+from dao.author import find_author_with_name
+from dao.category import find_category_with_name
 
 class Book(db.Model):
     __tablename__ = 'red_book'
@@ -16,12 +17,19 @@ class Book(db.Model):
     def __init__(self, name, author_name, category_name):
         self.name = name
 
-        #create relationships
+        #author
         if author_name is not None:
-            self.authors.append(Author(author_name))
+            author = find_author_with_name(author_name)
+            if author is None:
+                author = Author(author_name)
+            self.authors.append(author)
 
+        #category
         if category_name is not None:
-            self.categories.append(Category(category_name))
+            category = find_category_with_name(category_name)
+            if category is None:
+                category =  Category(category_name)
+            self.categories.append(category)
 
     def __repr__(self):
         return self.name
