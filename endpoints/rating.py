@@ -37,7 +37,8 @@ def rating_book_request_impl(args):
             raise InvalidRatingException
 
         book = find_book_with_name(book_name)
-        if (book is None):
+        if book is None:
+            print author_name
             book = Book(book_name, author_name, category_name)
             db.session.add(book)
 
