@@ -47,6 +47,6 @@ def rating_book_request_impl(args):
         book.ratings.append(rating)
         db.session.commit()
 
-        return json.dumps(BookSchema().dumps(book).data)
+        return BookSchema().dumps(book).data
     except Exception as e:
         return json.dumps({"error": str(e)})

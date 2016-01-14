@@ -1,8 +1,7 @@
-from flask import Flask
+from flask import Flask, url_for
 from db import db
-from api import api
 from ma import ma
-from endpoints.rating import RatingBookRequest
+from endpoints import blueprint as endpoints
 import os
 
 def create_app(app):
@@ -11,14 +10,15 @@ def create_app(app):
 
     #models
     db.init_app(app)
-    api.init_app(app)
     ma.init_app(app)
 
     with app.app_context():
 
         import models
         db.create_all()
-        api.add_resource(RatingBookRequest, '/rating')
+
+        #create endpoints
+        app.register_blueprint(endpoints)
 
 app = Flask(__name__)
 create_app(app)
