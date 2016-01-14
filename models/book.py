@@ -6,6 +6,7 @@ from category import Category
 from dao.author import find_author_with_name
 from dao.category import find_category_with_name
 
+
 class Book(db.Model):
     __tablename__ = 'red_book'
     id = Column(Integer, primary_key=True)

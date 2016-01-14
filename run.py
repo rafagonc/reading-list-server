@@ -17,7 +17,6 @@ def create_app(app):
     with app.app_context():
 
         import models
-        db.drop_all()
         db.create_all()
         api.add_resource(RatingBookRequest, '/rating')
 
