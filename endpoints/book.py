@@ -18,6 +18,6 @@ def top_rated_books():
 def top_rated_books_impl(args):
     try:
         books = dao.top_rated_books()
-        return BookSchema().dumps(books).data
+        return BookSchema(many=True).dumps(books).data
     except Exception as e:
         return json.dumps({"error": str(e)})

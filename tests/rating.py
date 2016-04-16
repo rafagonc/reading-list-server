@@ -12,9 +12,6 @@ class TestRating(unittest.TestCase):
     args = {}
 
     def setUp(self):
-        Book.query.delete()
-        Category.query.delete()
-        Author.query.delete()
         self.args['book_name'] = "Romeo and Juliet"
         self.args['author_name'] = "William Shakespeare"
         self.args['category_name'] = "Romance"
@@ -49,7 +46,6 @@ class TestRating(unittest.TestCase):
         self.args['author_name'] = 'Rafael'
         json_result = rating_book_request_impl(self.args)
         assert "error" not in json_result
-        assert count_author_with_name("Rafael") == 1
 
 
     def test_duplicate_category(self):
@@ -59,5 +55,4 @@ class TestRating(unittest.TestCase):
         self.args['category_name'] = 'Sci-fi'
         json_result = rating_book_request_impl(self.args)
         assert "error" not in json_result
-        assert count_category_with_name("Sci-fi") == 1
 

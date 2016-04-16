@@ -2,10 +2,12 @@ from db import db
 from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from author import Author
+from rating import Rating
 from category import Category
 from dao.author import find_author_with_name
 from dao.category import find_category_with_name
-
+from sqlalchemy.sql import func
+from sqlalchemy import desc
 
 class Book(db.Model):
     __tablename__ = 'red_book'
@@ -31,6 +33,12 @@ class Book(db.Model):
             if category is None:
                 category =  Category(category_name)
             category.books.append(self)
+
+    def rating(self):
+         return db.session.query(func.avg(Rating.rating))\
+                    .filter(Rating.book_id == self.id)\
+                    .group_by(Rating.book_id)\
+                    .scalar()
 
     def __repr__(self):
         return self.name
