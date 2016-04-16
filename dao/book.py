@@ -15,4 +15,5 @@ def top_rated_books():
     return db.session.query(Book, func.avg(Rating.rating))\
                      .join(Rating)\
                      .order_by(desc(func.avg(Rating.rating)))\
+                     .group_by(Book.id)\
                      .all()
