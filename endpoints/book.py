@@ -1,9 +1,35 @@
 from flask_restful import Resource, reqparse
 from schemas.book import BookSchema
 from dao import book as dao
+from general.response import simple_response
 import json
 
 parser = reqparse.RequestParser()
+parser.add_argument("books", type=dict, action='append')
+
+class BookEndpoint(Resource):
+    def post(self):
+        return append_book()
+
+
+def append_book():
+    args =parser.parse_args()
+    return append_book_impl(args)
+
+
+def append_book_impl(args):
+    try:
+        for book_dict in args['books']:
+            book_name = book_dict['name']
+            book = dao.find_book_with_name(book_name)
+            if book is None:
+
+        return simple_response(True, "Book Updated/Created")
+    except Exception as e:
+        return simple_response(False, str(e))
+
+
+
 
 class TopRatedBooksRequest(Resource):
     def get(self):

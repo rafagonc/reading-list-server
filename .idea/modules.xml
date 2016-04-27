@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/reading-list-prod.iml" filepath="$PROJECT_DIR$/.idea/reading-list-prod.iml" />
       <module fileurl="file://$USER_HOME$/PycharmProjects/reading_list/.idea/reading_list.iml" filepath="$USER_HOME$/PycharmProjects/reading_list/.idea/reading_list.iml" />
     </modules>
   </component>

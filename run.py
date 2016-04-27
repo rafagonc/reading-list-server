@@ -18,6 +18,8 @@ def create_app(app):
         from models.author import Author
         from models.rating import Rating
         from models.category import Category
+        from models.user import User
+        from models.log import ReadingLog
 
         db.create_all()
         db.session.commit()
