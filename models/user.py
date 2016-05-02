@@ -12,4 +12,3 @@ class User(db.Model):
     authToken = Column(String)
     authTokenSecret = Column(String)
     name = Column(String)
-    # books = relationship("Book", lazy='dynamic')

@@ -20,8 +20,8 @@ class TestUserBooks(unittest.TestCase):
     args = {}
 
     def setUp(self):
-        self.args = {"books" : [{"name" : "Book", "pages" : 432, "paged_read" : 234, "user_id" : 1, "snippet" : "daosdaopskdaopsdksaopsk", "rate" : 3.2 },
-                                {"name" : "Book", "pages" : 432, "paged_read" : 234, "user_id" : 1, "snippet" : "daosdaopskdaopsdksaopsk", "rate" : 3.2 }
+        self.args = {"user_id" : 1, "books" : [{"name" : "Book", "author" : "Barney", "category" : "Romance","pages" : 432, "pages_read" : 234, "snippet" : "daosdaopskdaopsdksaopsk", "rate" : 3.2 },
+                                {"name" : "Book", "pages" : 432, "author" : "Barney", "category" : "Romance", "pages_read" : 234, "snippet" : "daosdaopskdaopsdksaopsk", "rate" : 3.2 }
                                 ]}
 
     def test_create_books(self):

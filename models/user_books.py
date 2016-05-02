@@ -9,9 +9,18 @@ class UserBooks(db.Model):
     __tablename_ = "red_user_books"
 
     id = Column(Integer, primary_key=True)
-    user = Column(Integer, ForeignKey("red_user.id"))
-    book = Column(Integer, ForeignKey("red_book.id"))
+    user_id = Column(Integer, ForeignKey("red_user.id"))
+    book_id = Column(Integer, ForeignKey("red_book.id"))
     pages = Column(Integer)
     pages_read = Column(Integer)
     rate = Column(Float)
     snippet = Column(String)
+
+    def __init__(self, user, book, pages_read=0, pages=0, rate=0, snippet=""):
+        self.user_id = user.id
+        self.book_id = book.id
+        self.pages = pages
+        self.pages_read = pages_read
+        self.rate = rate
+        self.snippet = snippet
+

@@ -1,4 +1,5 @@
 from flask_restful import Resource, reqparse
+from db import  db
 from models.user import User
 from validator.user import validate
 from general.response import simple_response
@@ -27,6 +28,8 @@ def create_new_user_impl(args):
         user.authToken = args['auth_token']
         user.authTokenSecret = args['auth_token_secret']
         user.name = args['name']
+        db.session.add(user)
+        db.session.commit()
 
         return json.dumps(simple_response(True, "User Created"))
     except Exception as e:
