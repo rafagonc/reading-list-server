@@ -9,6 +9,7 @@ class User(db.Model):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(String, unique=True)
-    authToken = Column(String)
+    auth_token = Column(String)
     authTokenSecret = Column(String)
     name = Column(String)
+    profile_picture = Column(String)

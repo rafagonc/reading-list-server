@@ -25,7 +25,7 @@ def create_new_user_impl(args):
 
         user = User()
         user.user_id = args['user_id']
-        user.authToken = args['auth_token']
+        user.auth_token = args['auth_token']
         user.authTokenSecret = args['auth_token_secret']
         user.name = args['name']
         db.session.add(user)
