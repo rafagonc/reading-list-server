@@ -9,7 +9,6 @@ from .api import api
 
 def create_blueprint():
     api.init_app(blueprint)
-    api.add_resource()
     api.add_resource(RatingBookRequest, '/rating')
     api.add_resource(TopRatedBooksRequest, '/book/top')
     api.add_resource(BookEndpoint, '/book')
