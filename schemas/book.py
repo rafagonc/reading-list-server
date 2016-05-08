@@ -10,4 +10,4 @@ class BookSchema(ma.ModelSchema):
     rating = fields.Number()
 
     class Meta:
-        fields = ['name','author','category','rating']
+        fields = ['id','name','author','category','rating']

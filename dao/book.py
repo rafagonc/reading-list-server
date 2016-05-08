@@ -7,7 +7,7 @@ from sqlalchemy import desc
 #queries
 def find_book_with_name(book_name):
     return Book.query\
-               .filter(Book.name == book_name)\
+               .filter(Book.name.like(book_name))\
                .first()
 
 def top_rated_books():

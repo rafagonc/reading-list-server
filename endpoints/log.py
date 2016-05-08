@@ -3,36 +3,134 @@ from schemas.log import LogSchema
 from db import db
 from dao.book import find_book_with_name
 from models.log import ReadingLog
-from dao.user import user_by_id
+from dao.user import user_by_user_id
 from general.response import simple_response
 from dateutil.parser import parse
+from validator.log import validate
+from dao.log import list_user_logs
+from dao.log import log_by_id
 import json
 
 parser = reqparse.RequestParser()
-parser.add_argument("logs", type=dict, action='append')
-parser.add_argument("user_id", type=int, required=False)
 
 class LogEndpoint(Resource):
+
     def post(self):
         return append_log()
 
+    def get(self):
+        return list_logs()
+
+    def put(self):
+        return update_log()
+
+    def delete(self):
+        return delete_log()
+
 
 def append_log():
+    """
+
+    Append log to user attached to an book.
+
+    @see ReadingLog
+
+    @return Success and Message
+
+    """
     args = parser.parse_args()
+    parser.add_argument("logs", type=dict, action='append')
+    parser.add_argument("user_id", type=int, required=False)
     return append_log_impl(args)
 
 
 def append_log_impl(args):
     try:
-        user = user_by_id(args['user_id'])
+        user = user_by_user_id(args['user_id'])
         logs = []
         for log_dict in args['logs']:
+            validate(log_dict)
             log = ReadingLog()
             log.book = find_book_with_name(log_dict['book_name']).id
-            log.date = parse(args['date'])
-            log.pages = args['pages']
+            log.date = parse(log_dict['date'])
+            log.pages = log_dict['pages']
             db.session.add(log)
         db.session.commit()
-        return simple_response(True, "Logs Appended")
+        return json.dumps(simple_response(True, "Logs Appended"))
     except Exception as e:
         return json.dumps(simple_response(False, str(e)))
+
+
+def list_logs():
+    """
+
+    Fetch the list of reading logs from an user
+
+    @return List of logs
+
+    """
+    args = parser.parse_args()
+    parser.add_argument("user_id", type=int, required=False)
+    return list_logs_impl(args)
+
+
+def list_logs_impl(args):
+    try:
+        logs = list_user_logs(args['user_id'])
+        return json.loads(LogSchema(many=True).dumps(logs).data)
+    except Exception as e:
+        return json.dumps(simple_response(False, str(e)))
+
+
+def update_log():
+    """
+
+    Update the given log values such as pages or date
+
+    @see ReadingLog
+
+    @:return success dict
+    """
+    parser.add_argument("log_id", type=int)
+    parser.add_argument("user_id", type=str)
+    parser.add_argument("pages", type=int)
+    parser.add_argument("date", type=str)
+    return update_log_impl(parser.parse_args())
+
+
+def update_log_impl(args):
+    try:
+        user = user_by_user_id(args['user_id'])
+        log = log_by_id(args['log_id'])
+        log.pages = args['pages'] if args.has_key('pages') else log.pages
+        log.date = parse(args['date']) if args.has_key('date') else log.date
+        db.session.commit()
+        return simple_response(True, "Log Updated")
+    except Exception as e:
+        return json.dumps(simple_response(False, str(e)))
+
+
+def delete_log():
+    """
+
+    Delete a given log by id
+
+    @see Reading Log
+
+    @return success dict
+
+    """
+    parser.add_argument("log_id", type=int)
+    parser.add_argument("user_id", type=str)
+    return delete_log_impl(parser.parse_args())
+
+
+def delete_log_impl(args):
+    try:
+        user = user_by_user_id(args['user_id'])
+        log = log_by_id(args['log_id'])
+        db.session.delete(log)
+        db.session.commit()
+        return simple_response(True, "Log Deleted")
+    except Exception as e:
+        return simple_response(False, str(e))

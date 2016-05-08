@@ -1,5 +1,6 @@
 from db import db
 from sqlalchemy import Column, String, Integer, ForeignKey, Float
+from models.book import Book
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from sqlalchemy import desc
@@ -24,3 +25,7 @@ class UserBooks(db.Model):
         self.rate = rate
         self.snippet = snippet
 
+
+    @property
+    def book(self):
+        return Book.query.filter(Book.id == self.book_id).first()

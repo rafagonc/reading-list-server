@@ -20,7 +20,6 @@ def create_app(app):
         from models.category import Category
         from models.user import User
         from models.log import ReadingLog
-
         db.create_all()
         db.session.commit()
 

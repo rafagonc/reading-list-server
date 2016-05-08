@@ -1,7 +1,10 @@
 from ma import ma
 from models.log import ReadingLog
 from marshmallow import fields
+from book import BookSchema
 
 class LogSchema(ma.ModelSchema):
+    book_ref = fields.Nested(BookSchema)
+
     class Meta:
-        meta = ReadingLog
+        fields = ['pages', 'date', 'user', 'book_ref']

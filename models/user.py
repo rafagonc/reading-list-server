@@ -8,7 +8,7 @@ class User(db.Model):
     __tablename__ = 'red_user'
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(String)
+    user_id = Column(String, unique=True)
     authToken = Column(String)
     authTokenSecret = Column(String)
     name = Column(String)
