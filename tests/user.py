@@ -1,6 +1,7 @@
 import unittest
 import json
-from endpoints.user import create_new_user_impl
+from helper import create_user
+from endpoints.user import create_new_user_impl, get_user_impl
 
 class TestUser(unittest.TestCase):
     args = {}
@@ -14,3 +15,16 @@ class TestUser(unittest.TestCase):
     def test_create_user(self):
         response = create_new_user_impl(self.args)
         assert json.loads(response)['success'] is True
+
+
+class TestUser(unittest.TestCase):
+    args = {}
+
+    def setUp(self):
+        create_user("12324576918")
+        self.args = {"user_id" : "12324576918"}
+
+    def test(self):
+        response = get_user_impl(self.args)
+
+        assert not response.has_key('error')
