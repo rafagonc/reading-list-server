@@ -129,6 +129,13 @@ def update_book_impl(args):
 
 
 def list_books():
+    """
+
+    Fetch the user entire user book list.
+
+    @see Book
+
+    """
     parser.add_argument("user_id", type=int,)
     args = parser.parse_args()
     return list_books_impl(args)
