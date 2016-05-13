@@ -26,5 +26,4 @@ class TestUser(unittest.TestCase):
 
     def test(self):
         response = get_user_impl(self.args)
-
-        assert not response.has_key('error')
+        assert response['success'] is True

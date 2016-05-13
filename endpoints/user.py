@@ -55,7 +55,7 @@ def create_new_user_impl(args):
             user.name = args['name']
             db.session.add(user)
             db.session.commit()
-        return Response(True, "User Created", UserSchema().dumps(user).data)
+        return Response(True, "User Created", UserSchema().dumps(user).data).output()
     except Exception as e:
         return Response(False, str(e), None).output()
 
@@ -67,7 +67,7 @@ def get_user():
 
 def get_user_impl(args):
     try:
-        return Response(True, "User Updated", UserSchema().dumps(user_by_user_id(args['user_id'])).data)
+        return Response(True, "User Updated", UserSchema().dumps(user_by_user_id(args['user_id'])).data).output()
     except Exception as e:
         return Response(False, str(e), None).output()
 
@@ -87,7 +87,7 @@ def update_user_impl(args):
         user.auth_token = args['auth_token'] if args.has_key('auth_token') else user.auth_token
         user.auth_token_secret = args['auth_token_secret'] if args.has_key('auth_token_secret') else user.auth_token_secret
         db.session.commit()
-        return Response(True, "User Updated", UserSchema().dumps(user).data)
+        return Response(True, "User Updated", UserSchema().dumps(user).data).output()
     except Exception as e:
         return Response(False, str(e), None).output()
 
@@ -100,5 +100,6 @@ def delete_user():
 def delete_user_impl(args):
     try:
         db.session.delete(user_by_user_id(args['user_id']))
+        return Response(True, "User Deleted", None).output()
     except Exception as e:
         return Response(False, str(e), None).output()

@@ -10,7 +10,9 @@ from validator.book import validate
 from dao.user import user_by_user_id
 from general.response import simple_response
 from dao.user_book import  user_book_from_book_id, user_book_from_book_name, list_user_books
+from response import Response
 import json
+
 
 parser = reqparse.RequestParser()
 
@@ -37,6 +39,7 @@ class BookEndpoint(Resource):
 
 def append_book():
     """
+
     Appends an array of books to the user. But,
     it doesnt change any of the book metadata, just
     append a new book by having a m:n table between
@@ -48,7 +51,7 @@ def append_book():
 
     """
     parser.add_argument("books", type=dict, action='append')
-    parser.add_argument("user_id", type=int, required=False)
+    parser.add_argument("user_id", type=str, required=False)
     args = parser.parse_args()
     return append_book_impl(args)
 
@@ -56,18 +59,22 @@ def append_book():
 def append_book_impl(args):
     try:
         user = user_by_user_id(args['user_id'])
+        books = []
         for book_dict in args['books']:
             validate(book_dict)
             book_name = book_dict['name']
             book = dao.find_book_with_name(book_name)
             if book is None:
                 book = Book(book_name, book_dict['author'], book_dict['category'])
+                db.session.add(book)
+                db.session.commit()
             user_book = UserBooks(user, book,  book_dict['pages_read'],  book_dict['pages'], book_dict['rate'], book_dict["snippet"])
             db.session.add(user_book)
             db.session.commit()
-        return json.dumps(simple_response(True, "Book Updated/Created"))
+            books.append(user_book)
+        return Response(True, "Books Appended", UserBookSchema(many=True).dumps(books).data).output()
     except Exception as e:
-        return json.dumps(simple_response(False, str(e)))
+        return Response(False, str(e), None).output()
 
 
 def delete_book():
@@ -80,7 +87,7 @@ def delete_book():
     @see User, UserBooks, Book
 
     """
-    parser.add_argument("user_id", type=int)
+    parser.add_argument("user_id", type=str)
     parser.add_argument("book_name", type=str)
     args = parser.parse_args()
     return delete_book_impl(args)
@@ -90,9 +97,9 @@ def delete_book_impl(args):
         book = user_book_from_book_name(args['book_name'], user_by_id(args['user_id']).id)
         db.session.delete(book)
         db.session.commit()
-        return json.dumps(simple_response(True, "Book Deleted"))
+        return Response(True, "Book Deleted", None).output()
     except Exception as e:
-        return json.dumps(simple_response(False, str(e)))
+        return Response(False, str(e), None).output()
 
 
 def update_book():
@@ -106,7 +113,7 @@ def update_book():
 
     """
     parser.add_argument("book_id", type=int)
-    parser.add_argument("user_id", type=int)
+    parser.add_argument("user_id", type=str)
     parser.add_argument("pages", type=int, required=False)
     parser.add_argument("pages_read", type=int, required=False)
     parser.add_argument("snippet", type=str, required=False)
@@ -123,9 +130,9 @@ def update_book_impl(args):
         book.snippet = args['snippet'] if args.has_key('snippet') else book.snippet
         book.rate = args['rate'] if args.has_key('rate') else book.rate
         db.session.commit()
-        return json.dumps(simple_response(True, "Book Updated"))
+        return Response(True, "Book Updated", UserBookSchema().dumps(book).data).output()
     except Exception as e:
-        return json.dumps(simple_response(False, str(e)))
+        return Response(False, str(e), None).output()
 
 
 def list_books():
@@ -136,7 +143,7 @@ def list_books():
     @see Book
 
     """
-    parser.add_argument("user_id", type=int,)
+    parser.add_argument("user_id", type=str,)
     args = parser.parse_args()
     return list_books_impl(args)
 
@@ -144,9 +151,9 @@ def list_books():
 def list_books_impl(args):
     try:
         user_books = list_user_books(args['user_id'])
-        return json.loads(UserBookSchema(many=True).dumps(user_books).data)
+        return Response(True, "Book Listed", UserBookSchema(many=True).dumps(user_books).data).output()
     except Exception as e:
-        return json.dumps(simple_response(False, str(e)))
+        return Response(False, str(e), None).output()
 
 
 class TopRatedBooksRequest(Resource):

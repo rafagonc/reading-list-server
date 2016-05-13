@@ -19,7 +19,7 @@ class TestAppendLog(unittest.TestCase):
 
 
     def testAppend(self):
-        response = json.loads(append_log_impl(self.args))
+        response = append_log_impl(self.args)
         assert response['success'] is True
 
 
@@ -36,8 +36,8 @@ class TestListLog(unittest.TestCase):
 
     def test(self):
         response = list_logs_impl(self.args)
-        assert len(response) > 0
-        assert response[0] is not None
+        assert response['success'] is True
+        assert response['data'][0] is not None
 
 
 class TestRemoveLog(unittest.TestCase):

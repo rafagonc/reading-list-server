@@ -1,10 +1,8 @@
 import unittest
 from db import db
 from endpoints.book import delete_book_impl, update_book_impl, top_rated_books_impl, append_book_impl, list_books_impl
-from dao.user_book import user_book_from_book_name
 from helper import create_user, create_book
 from models.user_books import  UserBooks
-import json
 
 
 class TestTopRatedBook(unittest.TestCase):
@@ -27,7 +25,7 @@ class TestAppendBook(unittest.TestCase):
                                 ]}
 
     def test_create_books(self):
-        response = json.loads(append_book_impl(self.args))
+        response = append_book_impl(self.args)
         assert response['success'] is True
 
 
@@ -44,7 +42,7 @@ class TestRemoveBook(unittest.TestCase):
         self.args = {"user_id" : self.user.id, "book_name" : book.name}
 
     def test(self):
-        resposne = json.loads(delete_book_impl(self.args))
+        resposne = delete_book_impl(self.args)
         assert resposne['success'] is True
 
 
@@ -61,7 +59,7 @@ class TestUpdateBook(unittest.TestCase):
         self.args = {"user_id" : user.id, "pages_read" : 123, "pages" : 321, "book_id" : book.id}
 
     def test(self):
-        resposne = json.loads(update_book_impl(self.args))
+        resposne = update_book_impl(self.args)
         assert self.user_book.pages == 321 and self.user_book.pages_read == 123.
         assert resposne['success'] is True
 
@@ -80,4 +78,5 @@ class TestListUserBooks(unittest.TestCase):
 
     def test(self):
         response = list_books_impl(self.args)
-        assert response[0] is not None
+        assert response['success'] is True
+        assert response['data'][0] is not None

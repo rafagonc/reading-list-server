@@ -9,6 +9,7 @@ from dateutil.parser import parse
 from validator.log import validate
 from dao.log import list_user_logs
 from dao.log import log_by_id
+from response import Response
 import json
 
 parser = reqparse.RequestParser()
@@ -55,10 +56,11 @@ def append_log_impl(args):
             log.date = parse(log_dict['date'])
             log.pages = log_dict['pages']
             db.session.add(log)
+            logs.append(log)
         db.session.commit()
-        return json.dumps(simple_response(True, "Logs Appended"))
+        return Response(True, "Logs Appended", LogSchema(many=True).dumps(logs).data).output()
     except Exception as e:
-        return json.dumps(simple_response(False, str(e)))
+        return Response(False, str(e), None).output()
 
 
 def list_logs():
@@ -77,9 +79,9 @@ def list_logs():
 def list_logs_impl(args):
     try:
         logs = list_user_logs(args['user_id'])
-        return json.loads(LogSchema(many=True).dumps(logs).data)
+        return Response(True, "Logs Listed", LogSchema(many=True).dumps(logs).data).output()
     except Exception as e:
-        return json.dumps(simple_response(False, str(e)))
+        return Response(False, str(e), None).output()
 
 
 def update_log():
@@ -105,9 +107,9 @@ def update_log_impl(args):
         log.pages = args['pages'] if args.has_key('pages') else log.pages
         log.date = parse(args['date']) if args.has_key('date') else log.date
         db.session.commit()
-        return simple_response(True, "Log Updated")
+        return Response(True, "Logs Listed", LogSchema().dumps(log).data).output()
     except Exception as e:
-        return json.dumps(simple_response(False, str(e)))
+        return Response(False, str(e), None).output()
 
 
 def delete_log():
@@ -133,4 +135,4 @@ def delete_log_impl(args):
         db.session.commit()
         return simple_response(True, "Log Deleted")
     except Exception as e:
-        return simple_response(False, str(e))
+        return Response(False, str(e), None).output()
