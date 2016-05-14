@@ -8,8 +8,6 @@ from schemas.user import UserSchema
 from response import Response
 import json
 
-parser = reqparse.RequestParser()
-
 
 class UserEndpoint(Resource):
     """
@@ -33,10 +31,19 @@ class UserEndpoint(Resource):
 
 
 def create_new_user():
-    parser.add_argument("name", required=True)
-    parser.add_argument("user_id", required=True)
-    parser.add_argument("auth_token", required=True)
-    parser.add_argument("auth_token_secret", required=True)
+    """
+
+    Create a new user based on the info
+    given by Twitter's Digits Kit.
+
+    @see User
+
+    """
+    parser = reqparse.RequestParser()
+    parser.add_argument("name")
+    parser.add_argument("user_id",required=True)
+    parser.add_argument("auth_token")
+    parser.add_argument("auth_token_secret")
     args = parser.parse_args()
     return create_new_user_impl(args)
 
@@ -61,31 +68,56 @@ def create_new_user_impl(args):
 
 
 def get_user():
+    """
+
+    Return an given user based on the
+    user_id.
+
+    @see User
+
+    """
+    parser = reqparse.RequestParser()
     parser.add_argument("user_id", required=True)
     return get_user_impl(parser.parse_args())
 
 
 def get_user_impl(args):
     try:
-        return Response(True, "User Updated", UserSchema().dumps(user_by_user_id(args['user_id'])).data).output()
+        return Response(True, "User Listed", UserSchema().dumps(user_by_user_id(args['user_id'])).data).output()
     except Exception as e:
         return Response(False, str(e), None).output()
 
 
 def update_user():
-    parser.add_argument("name", required=True)
+    """
+
+    Capture any input came from request and set
+    on the user if appliable.
+
+    @see User
+
+    """
+    parser = reqparse.RequestParser()
+    parser.add_argument("name")
     parser.add_argument("user_id", required=True)
-    parser.add_argument("auth_token", required=True)
-    parser.add_argument("auth_token_secret", required=True)
+    parser.add_argument("auth_token")
+    parser.add_argument("auth_token_secret")
     return update_user_impl(parser.parse_args())
 
 
 def update_user_impl(args):
     try:
         user = user_by_user_id(args['user_id'])
-        user.name = args['name'] if args.has_key('name') else user.name
-        user.auth_token = args['auth_token'] if args.has_key('auth_token') else user.auth_token
-        user.auth_token_secret = args['auth_token_secret'] if args.has_key('auth_token_secret') else user.auth_token_secret
+
+        if args['auth_token'] is not None:
+            user.auth_token = args['auth_token']
+
+        if args['auth_token_secret'] is not None:
+            user.auth_token_secret = args['auth_token_secret']
+
+        if args['name'] is not None:
+            user.name = args['name']
+
         db.session.commit()
         return Response(True, "User Updated", UserSchema().dumps(user).data).output()
     except Exception as e:
@@ -93,12 +125,21 @@ def update_user_impl(args):
 
 
 def delete_user():
+    """
+
+    Delete a given user.
+
+    @see User
+
+    """
+    parser = reqparse.RequestParser()
     parser.add_argument("user_id", required=True)
     return delete_user_impl(parser.parse_args())
 
 
 def delete_user_impl(args):
     try:
+        print(args)
         db.session.delete(user_by_user_id(args['user_id']))
         return Response(True, "User Deleted", None).output()
     except Exception as e:

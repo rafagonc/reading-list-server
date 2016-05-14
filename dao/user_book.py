@@ -1,5 +1,6 @@
 from models.user_books import UserBooks
 from dao.book import find_book_with_name
+from dao.user import user_by_user_id
 from exc.invalid_user_book import UserBookNotFoundException
 
 def user_book_from_book_name(book_name, user_id):
@@ -17,5 +18,5 @@ def user_book_from_book_id(book_id, user_id):
 
 
 def list_user_books(user_id):
-    list = UserBooks.query.filter(UserBooks.user_id == user_id).all()
+    list = UserBooks.query.filter(UserBooks.user_id == user_by_user_id(user_id).id).all()
     return list

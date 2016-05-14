@@ -104,10 +104,10 @@ def update_log_impl(args):
     try:
         user = user_by_user_id(args['user_id'])
         log = log_by_id(args['log_id'])
-        log.pages = args['pages'] if args.has_key('pages') else log.pages
-        log.date = parse(args['date']) if args.has_key('date') else log.date
+        log.pages = args['pages'] if args['pages'] is not None else log.pages
+        log.date = parse(args['date']) if args['date'] is not None else log.date
         db.session.commit()
-        return Response(True, "Logs Listed", LogSchema().dumps(log).data).output()
+        return Response(True, "Log Updated", LogSchema().dumps(log).data).output()
     except Exception as e:
         return Response(False, str(e), None).output()
 

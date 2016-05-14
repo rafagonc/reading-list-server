@@ -8,13 +8,10 @@ from schemas.user_book import UserBookSchema
 from dao import book as dao
 from validator.book import validate
 from dao.user import user_by_user_id
-from general.response import simple_response
 from dao.user_book import  user_book_from_book_id, user_book_from_book_name, list_user_books
 from response import Response
 import json
 
-
-parser = reqparse.RequestParser()
 
 class BookEndpoint(Resource):
     """
@@ -50,6 +47,7 @@ def append_book():
     @see User, UserBooks, Book
 
     """
+    parser = reqparse.RequestParser()
     parser.add_argument("books", type=dict, action='append')
     parser.add_argument("user_id", type=str, required=False)
     args = parser.parse_args()
@@ -87,6 +85,7 @@ def delete_book():
     @see User, UserBooks, Book
 
     """
+    parser = reqparse.RequestParser()
     parser.add_argument("user_id", type=str)
     parser.add_argument("book_name", type=str)
     args = parser.parse_args()
@@ -94,7 +93,7 @@ def delete_book():
 
 def delete_book_impl(args):
     try:
-        book = user_book_from_book_name(args['book_name'], user_by_id(args['user_id']).id)
+        book = user_book_from_book_name(args['book_name'], user_by_user_id(args['user_id']).id)
         db.session.delete(book)
         db.session.commit()
         return Response(True, "Book Deleted", None).output()
@@ -112,23 +111,37 @@ def update_book():
     @see UserBooks
 
     """
+    parser = reqparse.RequestParser()
     parser.add_argument("book_id", type=int)
     parser.add_argument("user_id", type=str)
     parser.add_argument("pages", type=int, required=False)
     parser.add_argument("pages_read", type=int, required=False)
     parser.add_argument("snippet", type=str, required=False)
     parser.add_argument("rate", type=float, required=False)
+    parser.add_argument("loved", type=bool, required=False)
     args = parser.parse_args()
     return update_book_impl(args)
 
 
 def update_book_impl(args):
     try:
-        book = user_book_from_book_id(args['book_id'], user_by_id(args['user_id']).id)
-        book.pages = args['pages'] if args.has_key('pages') else book.pages
-        book.pages_read = args['pages_read'] if args.has_key('pages_read') else book.pages_read
-        book.snippet = args['snippet'] if args.has_key('snippet') else book.snippet
-        book.rate = args['rate'] if args.has_key('rate') else book.rate
+        book = user_book_from_book_id(args['book_id'], user_by_user_id(args['user_id']).id)
+
+        if args.has_key("pages") and args['pages'] is not None:
+            book.pages = args['pages']
+
+        if args.has_key("pages_read") and args['pages_read'] is not None:
+            book.pages_read = args['pages_read']
+
+        if args.has_key("snippet") and args['snippet'] is not None:
+            book.snippet = args['snippet']
+
+        if args.has_key("rate") and args['rate'] is not None:
+            book.rate = args['rate']
+
+        if args.has_key("loved") and args['loved'] is not None:
+            book.loved = args['loved']
+
         db.session.commit()
         return Response(True, "Book Updated", UserBookSchema().dumps(book).data).output()
     except Exception as e:
@@ -143,7 +156,8 @@ def list_books():
     @see Book
 
     """
-    parser.add_argument("user_id", type=str,)
+    parser = reqparse.RequestParser()
+    parser.add_argument("user_id", type=str)
     args = parser.parse_args()
     return list_books_impl(args)
 
@@ -170,6 +184,7 @@ class TopRatedBooksRequest(Resource):
 
 
 def top_rated_books():
+    parser = reqparse.RequestParser()
     args = parser.parse_args()
     return top_rated_books_impl(args)
 

@@ -39,7 +39,7 @@ class TestRemoveBook(unittest.TestCase):
         user_book = UserBooks(self.user, book)
         db.session.add(user_book)
         db.session.commit()
-        self.args = {"user_id" : self.user.id, "book_name" : book.name}
+        self.args = {"user_id" : self.user.user_id, "book_name" : book.name}
 
     def test(self):
         resposne = delete_book_impl(self.args)
@@ -56,7 +56,7 @@ class TestUpdateBook(unittest.TestCase):
         self.user_book = UserBooks(user, book)
         db.session.add(self.user_book)
         db.session.commit()
-        self.args = {"user_id" : user.id, "pages_read" : 123, "pages" : 321, "book_id" : book.id}
+        self.args = {"user_id" : user.user_id, "pages_read" : 123, "pages" : 321, "book_id" : book.id}
 
     def test(self):
         resposne = update_book_impl(self.args)
@@ -74,7 +74,7 @@ class TestListUserBooks(unittest.TestCase):
         self.user_book = UserBooks(user, book)
         db.session.add(self.user_book)
         db.session.commit()
-        self.args = {'user_id' : user.id}
+        self.args = {'user_id' : user.user_id}
 
     def test(self):
         response = list_books_impl(self.args)

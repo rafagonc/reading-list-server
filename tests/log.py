@@ -48,7 +48,7 @@ class TestRemoveLog(unittest.TestCase):
         user = create_user("65748")
         book = create_book("CleanCode123", "Robert", "Computer")
         self.log = create_log(book.name, user.user_id)
-        self.args = {'user_id' : user.user_id ,'log_id' : self.log.id}
+        self.args = {'user_id' : "65748",'log_id' : self.log.id}
 
     def test(self):
         response = delete_log_impl(self.args)
@@ -63,7 +63,7 @@ class TestUpdateLog(unittest.TestCase):
         user = create_user("657412318")
         book = create_book("CleanCode123", "Robert", "Computer")
         self.log = create_log(book.name, user.user_id)
-        self.args = {'user_id' : user.user_id ,'log_id' : self.log.id, "pages" : 123, "date" : "2014/12/4"}
+        self.args = {'user_id': "657412318", 'log_id': self.log.id, "pages" : 123, "date" : "2014/12/4"}
 
     def test(self):
         response = update_log_impl(self.args)
