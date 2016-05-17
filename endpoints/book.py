@@ -66,8 +66,16 @@ def append_book_impl(args):
                 book = Book(book_name, book_dict['author'], book_dict['category'])
                 db.session.add(book)
                 db.session.commit()
-            user_book = UserBooks(user, book,  book_dict['pages_read'],  book_dict['pages'], book_dict['rate'], book_dict["snippet"])
-            db.session.add(user_book)
+            try:
+                user_book = user_book_from_book_name(book_name, user_by_user_id(args['user_id']).id)
+                user_book.pages = book_dict['pages']
+                user_book.pages_read = book_dict['pages_read']
+                user_book.rate = book_dict['rate']
+                user_book.loved = book_dict['loved']
+                user_book.snippet = book_dict['snippet']
+            except Exception as e:
+                user_book = UserBooks(user, book,  book_dict['pages_read'],  book_dict['pages'], book_dict['rate'], book_dict["snippet"])
+                db.session.add(user_book)
             db.session.commit()
             books.append(user_book)
         return Response(True, "Books Appended", UserBookSchema(many=True).dumps(books).data).output()
@@ -129,6 +137,9 @@ def update_book_impl(args):
 
         if args.has_key("pages") and args['pages'] is not None:
             book.pages = args['pages']
+
+        if args.has_key("loved") and args['loved'] is not None:
+            book.loved = args['loved']
 
         if args.has_key("pages_read") and args['pages_read'] is not None:
             book.pages_read = args['pages_read']

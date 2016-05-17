@@ -1,5 +1,5 @@
 from db import db
-from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy import Column, String, Integer, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from sqlalchemy import desc
@@ -14,3 +14,4 @@ class User(db.Model):
     name = Column(String)
     profile_picture = Column(String)
     cover_picture = Column(String)
+    payed = Column(Boolean)

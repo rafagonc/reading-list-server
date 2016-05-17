@@ -15,6 +15,7 @@ class UserBooks(db.Model):
     rate = Column(Float)
     loved = Column(Boolean)
     snippet = Column(String)
+    cover_url = Column(String)
 
     def __init__(self, user, book, pages_read=0, pages=0, rate=0, snippet=""):
         self.user_id = user.id

@@ -57,11 +57,11 @@ def create_new_user_impl(args):
         except Exception as e:
             user = User()
             user.user_id = args['user_id']
-            user.auth_token = args['auth_token']
-            user.auth_token_secret = args['auth_token_secret']
-            user.name = args['name']
             db.session.add(user)
-            db.session.commit()
+        user.auth_token = args['auth_token']
+        user.auth_token_secret = args['auth_token_secret']
+        user.name = args['name']
+        db.session.commit()
         return Response(True, "User Created", UserSchema().dumps(user).data).output()
     except Exception as e:
         return Response(False, str(e), None).output()
