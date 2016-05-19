@@ -12,8 +12,6 @@ from dao.log import log_by_id
 from response import Response
 import json
 
-parser = reqparse.RequestParser()
-
 class LogEndpoint(Resource):
 
     def post(self):
@@ -39,9 +37,10 @@ def append_log():
     @return Success and Message
 
     """
-    args = parser.parse_args()
+    parser = reqparse.RequestParser()
     parser.add_argument("logs", type=dict, action='append')
-    parser.add_argument("user_id", type=int, required=False)
+    parser.add_argument("user_id", type=str, required=False)
+    args = parser.parse_args()
     return append_log_impl(args)
 
 
@@ -55,6 +54,7 @@ def append_log_impl(args):
             log.book = find_book_with_name(log_dict['book_name']).id
             log.date = parse(log_dict['date'])
             log.pages = log_dict['pages']
+            log.user = user.user_id
             db.session.add(log)
             logs.append(log)
         db.session.commit()
@@ -71,8 +71,9 @@ def list_logs():
     @return List of logs
 
     """
+    parser = reqparse.RequestParser()
+    parser.add_argument("user_id", type=str, required=False)
     args = parser.parse_args()
-    parser.add_argument("user_id", type=int, required=False)
     return list_logs_impl(args)
 
 
@@ -93,6 +94,7 @@ def update_log():
 
     @:return success dict
     """
+    parser = reqparse.RequestParser()
     parser.add_argument("log_id", type=int)
     parser.add_argument("user_id", type=str)
     parser.add_argument("pages", type=int)
@@ -122,6 +124,7 @@ def delete_log():
     @return success dict
 
     """
+    parser = reqparse.RequestParser()
     parser.add_argument("log_id", type=int)
     parser.add_argument("user_id", type=str)
     return delete_log_impl(parser.parse_args())

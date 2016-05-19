@@ -58,6 +58,8 @@ def append_book_impl(args):
     try:
         user = user_by_user_id(args['user_id'])
         books = []
+        if args['books'] is None:
+            return Response(True, "Books Appended", UserBookSchema(many=True).dumps(books).data).output()
         for book_dict in args['books']:
             validate(book_dict)
             book_name = book_dict['name']
@@ -72,6 +74,7 @@ def append_book_impl(args):
                 user_book.pages_read = book_dict['pages_read']
                 user_book.rate = book_dict['rate']
                 user_book.loved = book_dict['loved']
+                user_book.cover_url = book_dict['cover_url']
                 user_book.snippet = book_dict['snippet']
             except Exception as e:
                 user_book = UserBooks(user, book,  book_dict['pages_read'],  book_dict['pages'], book_dict['rate'], book_dict["snippet"])
@@ -120,11 +123,12 @@ def update_book():
 
     """
     parser = reqparse.RequestParser()
-    parser.add_argument("book_id", type=int)
-    parser.add_argument("user_id", type=str)
+    parser.add_argument("book_id", type=int, required=False)
+    parser.add_argument("user_id", type=str, required=False)
     parser.add_argument("pages", type=int, required=False)
     parser.add_argument("pages_read", type=int, required=False)
-    parser.add_argument("snippet", type=str, required=False)
+    parser.add_argument("snippet", type=unicode, required=False)
+    parser.add_argument("cover_url", type=unicode, required=False)
     parser.add_argument("rate", type=float, required=False)
     parser.add_argument("loved", type=bool, required=False)
     args = parser.parse_args()
@@ -136,7 +140,10 @@ def update_book_impl(args):
         book = user_book_from_book_id(args['book_id'], user_by_user_id(args['user_id']).id)
 
         if args.has_key("pages") and args['pages'] is not None:
-            book.pages = args['pages']
+            book.pages = int(args['pages'])
+
+        if args.has_key("cover_url") and args['cover_url'] is not None:
+            book.cover_url = args['cover_url']
 
         if args.has_key("loved") and args['loved'] is not None:
             book.loved = args['loved']

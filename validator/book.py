@@ -6,7 +6,7 @@ def validate(book_dict):
     category = book_dict['category']
     pages = book_dict['pages']
     pages_read = book_dict['pages_read']
-    if len(name) > 0 and len(category) > 0 and pages > 0 and pages_read is not None:
+    if len(name) > 0 and len(category) > 0 and pages is not None and pages_read is not None:
         pass
     else:
         raise InvalidBookException()
