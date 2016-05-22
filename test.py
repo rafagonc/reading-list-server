@@ -8,7 +8,6 @@ with app.app_context():
     from tests.user import *
     from tests.log import *
     import models
-    db.session.rollback()
     db.drop_all()
     db.create_all()
     unittest.TestProgram()

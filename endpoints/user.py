@@ -139,7 +139,6 @@ def delete_user():
 
 def delete_user_impl(args):
     try:
-        print(args)
         db.session.delete(user_by_user_id(args['user_id']))
         return Response(True, "User Deleted", None).output()
     except Exception as e:
