@@ -48,6 +48,8 @@ def append_log_impl(args):
     try:
         user = user_by_user_id(args['user_id'])
         logs = []
+        if args['logs'] is None:
+            return Response(True, "Logs Appended", LogSchema(many=True).dumps(logs).data).output()
         for log_dict in args['logs']:
             validate(log_dict)
             log = ReadingLog()
