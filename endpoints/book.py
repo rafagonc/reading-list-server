@@ -175,7 +175,7 @@ def list_books():
 
     """
     parser = reqparse.RequestParser()
-    parser.add_argument("user_id", type=str)
+    parser.add_argument("user_id", type=str, required=True)
     args = parser.parse_args()
     return list_books_impl(args)
 
