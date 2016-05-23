@@ -48,9 +48,15 @@ def append_log_impl(args):
     try:
         user = user_by_user_id(args['user_id'])
         logs = []
+        if args['logs'] is None:
+            return Response(True, "Logs Appended", LogSchema(many=True).dumps(logs).data).output()
         for log_dict in args['logs']:
             validate(log_dict)
-            log = ReadingLog()
+            log = None
+            if (log_dict['id']):
+                log = log_by_id(log_dict['id'])
+            else:
+                log = ReadingLog()
             log.book = find_book_with_name(log_dict['book_name']).id
             log.date = parse(log_dict['date'])
             log.pages = log_dict['pages']

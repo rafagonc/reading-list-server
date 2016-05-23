@@ -4,12 +4,13 @@ from db import db
 from models.book import Book
 from models.author import Author
 from models.category import Category
-from endpoints.rating import rating_book_request_impl
+from endpoints.rating import rating_book_request_impl, multiple_rating_book_request_impl
 from dao.author import count_author_with_name
 from dao.category import count_category_with_name
 
 class TestRating(unittest.TestCase):
     args = {}
+    multiple= {}
 
     def setUp(self):
         self.args['book_name'] = "Romeo and Juliet"
@@ -17,8 +18,14 @@ class TestRating(unittest.TestCase):
         self.args['category_name'] = "Romance"
         self.args['rating'] = 5.0
 
+        self.multiple = {"books" : [self.args]}
+
     def tearDown(self):
         db.session.commit()
+
+    def test_multiple(self):
+        json_result = multiple_rating_book_request_impl(self.multiple)
+        print(json_result)
 
     def test(self):
         json_result = rating_book_request_impl(self.args)

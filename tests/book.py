@@ -26,7 +26,6 @@ class TestAppendBook(unittest.TestCase):
 
     def test_create_books(self):
         response = append_book_impl(self.args)
-        print(response)
         assert response['success'] is True
 
 
