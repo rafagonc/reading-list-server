@@ -20,6 +20,7 @@ class TestAppendLog(unittest.TestCase):
 
     def testAppend(self):
         response = append_log_impl(self.args)
+        print response
         assert response['success'] is True
 
 
