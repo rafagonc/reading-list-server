@@ -53,7 +53,7 @@ def append_log_impl(args):
         for log_dict in args['logs']:
             validate(log_dict)
             log = None
-            if (log_dict['id']):
+            if log_dict.has_key('id') and log_dict['id'] is not None:
                 log = log_by_id(log_dict['id'])
             else:
                 log = ReadingLog()

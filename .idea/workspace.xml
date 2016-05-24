@@ -40,8 +40,18 @@
       <file leaf-file-name="log.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/endpoints/log.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.80136985">
-              <caret line="54" column="30" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.41095892">
+              <caret line="55" column="41" selection-start-line="55" selection-start-column="41" selection-end-line="55" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="log.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/log.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="5" column="36" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -79,16 +89,6 @@
                 <marker date="1452644283000" expanded="true" signature="22577:22683" placeholder="SELECT t.oid..pg_type..." />
                 <marker date="1452644283000" expanded="true" signature="29522:29755" placeholder="SELECT t.oid..pg_type..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dbobj.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/lib/python2.7/bsddb/dbobj.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="151" column="8" selection-start-line="151" selection-start-column="8" selection-end-line="151" selection-end-column="8" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -191,7 +191,6 @@
         <option value="$PROJECT_DIR$/response.py" />
         <option value="$PROJECT_DIR$/schemas/log.py" />
         <option value="$PROJECT_DIR$/endpoints/book.py" />
-        <option value="$PROJECT_DIR$/endpoints/log.py" />
         <option value="$PROJECT_DIR$/schemas/user_book.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/migration.py" />
@@ -201,6 +200,7 @@
         <option value="$PROJECT_DIR$/endpoints/user.py" />
         <option value="$PROJECT_DIR$/endpoints/rating.py" />
         <option value="$PROJECT_DIR$/migrations/migration1.py" />
+        <option value="$PROJECT_DIR$/endpoints/log.py" />
       </list>
     </option>
   </component>
@@ -333,7 +333,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.migration">
+  <component name="RunManager" selected="Python.reading-list-prod">
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -829,13 +829,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/log.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/schemas/log.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1003,10 +996,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/models/log.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="36" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/endpoints/log.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.80136985">
-          <caret line="54" column="30" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.41095892">
+          <caret line="55" column="41" selection-start-line="55" selection-start-column="41" selection-end-line="55" selection-end-column="41" />
           <folding />
         </state>
       </provider>
