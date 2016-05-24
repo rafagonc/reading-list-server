@@ -100,7 +100,7 @@ def update_user():
 
     """
     parser = reqparse.RequestParser()
-    parser.add_argument("name")
+    parser.add_argument("name", type=unicode)
     parser.add_argument("user_id", required=True)
     parser.add_argument("auth_token")
     parser.add_argument("auth_token_secret")
