@@ -7,4 +7,4 @@ class LogSchema(ma.ModelSchema):
     book_ref = fields.Nested(BookSchema)
 
     class Meta:
-        fields = ['pages', 'date', 'user', 'book_ref', 'id']
+        fields = ['pages', 'date', 'user', 'book_ref', 'id', 'uuid']
