@@ -55,6 +55,8 @@ def append_log_impl(args):
             log = None
             if log_dict.has_key('id') and log_dict['id'] is not None:
                 log = log_by_id(log_dict['id'])
+                if log is None:
+                    log = ReadingLog()
             else:
                 log = ReadingLog()
             log.book = find_book_with_name(log_dict['book_name']).id
