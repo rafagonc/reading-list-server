@@ -1,3 +1,5 @@
+
+
 from flask_restful import Resource, reqparse
 from db import db
 from schemas.book import BookSchema
@@ -29,10 +31,8 @@ def multiple_rating_book_request():
 
 def multiple_rating_book_request_impl(args):
     try:
-        print(args)
         books = args['books']
 
-        print(books)
         for book_dict in books:
             rating_book_request_impl(book_dict)
         return Response(True, "Book Upload Done", None).output()

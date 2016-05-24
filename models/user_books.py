@@ -1,3 +1,5 @@
+
+
 from db import db
 from sqlalchemy import Column, String, Integer, ForeignKey, Float, Boolean
 from models.book import Book

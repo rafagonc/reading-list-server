@@ -1,3 +1,5 @@
+
+
 from db import db
 from models.book import Book
 from models.rating import Rating

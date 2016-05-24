@@ -1,3 +1,5 @@
+
+
 from exc.invalid_book import InvalidBookException
 
 def validate(book_dict):

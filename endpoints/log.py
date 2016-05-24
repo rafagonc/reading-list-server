@@ -7,6 +7,8 @@ from dao.user import user_by_user_id
 from general.response import simple_response
 from dateutil.parser import parse
 from validator.log import validate
+
+
 from dao.log import list_user_logs
 from dao.log import log_by_id
 from response import Response
@@ -62,6 +64,7 @@ def append_log_impl(args):
             log.book = find_book_with_name(log_dict['book_name']).id
             log.date = parse(log_dict['date'])
             log.pages = log_dict['pages']
+            log.uuid = log_dict['uuid']
             log.user = user.user_id
             db.session.add(log)
             logs.append(log)

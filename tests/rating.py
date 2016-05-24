@@ -1,3 +1,5 @@
+
+
 import unittest
 import json
 from db import db
@@ -25,7 +27,6 @@ class TestRating(unittest.TestCase):
 
     def test_multiple(self):
         json_result = multiple_rating_book_request_impl(self.multiple)
-        print(json_result)
 
     def test(self):
         json_result = rating_book_request_impl(self.args)

@@ -1,3 +1,5 @@
+
+
 from db import db
 from models.user import User
 from exc.user_not_find import UserNotFoundException
