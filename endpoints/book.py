@@ -74,11 +74,11 @@ def append_book_impl(args):
                 user_book.pages_read = book_dict['pages_read']
                 user_book.rate = book_dict['rate']
                 user_book.loved = book_dict['loved']
-                user_book.cover_url = book_dict['cover_url']
                 user_book.snippet = book_dict['snippet']
-                print book_dict
+                user_book.cover_url = book_dict['cover_url']
             except Exception as e:
                 user_book = UserBooks(user, book,  book_dict['pages_read'],  book_dict['pages'], book_dict['rate'], book_dict["snippet"])
+                user_book.cover_url = book_dict['cover_url']
                 db.session.add(user_book)
             db.session.commit()
             books.append(user_book)

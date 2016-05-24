@@ -31,7 +31,7 @@
         <entry file="file://$PROJECT_DIR$/endpoints/book.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.7191781">
-              <caret line="78" column="31" selection-start-line="78" selection-start-column="31" selection-end-line="78" selection-end-column="31" />
+              <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
               </folding>
@@ -635,13 +635,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/endpoints/book.py</url>
-          <line>76</line>
-          <option name="timeStamp" value="70" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -1029,7 +1022,7 @@
     <entry file="file://$PROJECT_DIR$/endpoints/book.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7191781">
-          <caret line="78" column="31" selection-start-line="78" selection-start-column="31" selection-end-line="78" selection-end-column="31" />
+          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
           </folding>
