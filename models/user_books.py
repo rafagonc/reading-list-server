@@ -5,7 +5,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 
 
 class UserBooks(db.Model):
-    __tablename_ = "red_user_books"
+    __tablename__ = "red_user_books"
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("red_user.id"))

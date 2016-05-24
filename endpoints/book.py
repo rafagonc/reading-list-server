@@ -138,6 +138,7 @@ def update_book():
 
 def update_book_impl(args):
     try:
+        print(args)
         book = user_book_from_book_id(args['book_id'], user_by_user_id(args['user_id']).id)
 
         if args.has_key("pages") and args['pages'] is not None:
