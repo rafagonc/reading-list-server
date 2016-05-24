@@ -53,13 +53,16 @@ def append_log_impl(args):
         for log_dict in args['logs']:
             validate(log_dict)
             log = None
-            if (log_dict['id']):
+            if log_dict.has_key('id') and log_dict['id'] is not None:
                 log = log_by_id(log_dict['id'])
+                if log is None:
+                    log = ReadingLog()
             else:
                 log = ReadingLog()
             log.book = find_book_with_name(log_dict['book_name']).id
             log.date = parse(log_dict['date'])
             log.pages = log_dict['pages']
+            log.uuid = log_dict['uuid']
             log.user = user.user_id
             db.session.add(log)
             logs.append(log)

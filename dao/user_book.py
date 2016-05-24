@@ -11,7 +11,7 @@ def user_book_from_book_name(book_name, user_id):
 
 
 def user_book_from_book_id(book_id, user_id):
-    user_book = UserBooks.query.filter(UserBooks.book_id == book_id, UserBooks.user_id == user_id).first()
+    user_book = UserBooks.query.filter(UserBooks.id == book_id, UserBooks.user_id == user_id).first()
     if user_book is None:
         raise UserBookNotFoundException()
     return user_book

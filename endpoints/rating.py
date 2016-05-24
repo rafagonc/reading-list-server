@@ -29,10 +29,8 @@ def multiple_rating_book_request():
 
 def multiple_rating_book_request_impl(args):
     try:
-        print(args)
         books = args['books']
 
-        print(books)
         for book_dict in books:
             rating_book_request_impl(book_dict)
         return Response(True, "Book Upload Done", None).output()

@@ -10,6 +10,7 @@ class ReadingLog(db.Model):
     user = Column(String, ForeignKey('red_user.user_id'))
     pages = Column(Integer, nullable=False)
     date = Column(DateTime, nullable=False)
+    uuid = Column(String, unique=True)
 
     @property
     def book_ref(self):

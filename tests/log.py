@@ -15,12 +15,11 @@ class TestAppendLog(unittest.TestCase):
     def setUp(self):
         self.user = create_user("123")
         create_book("Clean Code", "Robert", "Computer")
-        self.args = {"user_id" : "123", "logs" : [{"book_name" : "Clean Code" , "pages" : 20, "date" : "2016-05-03 19:34"}]}
+        self.args = {"user_id" : "123", "logs" : [{"uuid" : "12390-1293", "book_name" : "Clean Code" , "pages" : 20, "date" : "2016-05-03 19:34"}]}
 
 
     def testAppend(self):
         response = append_log_impl(self.args)
-        print response
         assert response['success'] is True
 
 
