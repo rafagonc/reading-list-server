@@ -54,7 +54,7 @@ class RatingBookRequest(Resource):
 
 def rating_book_request():
     parser = reqparse.RequestParser()
-    parser.add_argument("book_name", type=str, required=False)
+    parser.add_argument("book_name", type=unicode, required=False)
     parser.add_argument("author_name", type=str, required=False)
     parser.add_argument("category_name", type=str, required=False)
     parser.add_argument("rating", type=float, required=False)

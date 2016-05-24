@@ -99,7 +99,7 @@ def delete_book():
     """
     parser = reqparse.RequestParser()
     parser.add_argument("user_id", type=str)
-    parser.add_argument("book_name", type=str)
+    parser.add_argument("book_name", type=unicode)
     args = parser.parse_args()
     return delete_book_impl(args)
 
