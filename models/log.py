@@ -1,6 +1,7 @@
 from db import db
 from book import Book
 from user_books import UserBooks
+from dao.user import user_by_user_id
 from sqlalchemy import Column, Integer, ForeignKey, DateTime, String
 
 class ReadingLog(db.Model):
@@ -15,5 +16,5 @@ class ReadingLog(db.Model):
 
     @property
     def book_ref(self):
-        return UserBooks.query.filter(UserBooks.user_id == self.user, UserBooks.book_id == self.book).first()
+        return UserBooks.query.filter(UserBooks.user_id == user_by_user_id(self.user).id, UserBooks.book_id == self.book).first()
 
