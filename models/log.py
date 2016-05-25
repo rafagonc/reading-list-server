@@ -15,5 +15,5 @@ class ReadingLog(db.Model):
 
     @property
     def book_ref(self):
-        return UserBooks.query.filter(UserBooks.user_id == self.user.id, UserBooks.book_id == self.book).first()
+        return UserBooks.query.filter(UserBooks.user_id == self.user, UserBooks.book_id == self.book).first()
 

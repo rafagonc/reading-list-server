@@ -1,12 +1,12 @@
-
-
 import unittest
+from models.user_books import UserBooks
 from endpoints.log import append_log_impl
 from endpoints.log import list_logs_impl
 from endpoints.log import update_log_impl
 from endpoints.log import delete_log_impl
 from .helper import create_log, create_book, create_user
 import json
+from db import db
 
 
 class TestAppendLog(unittest.TestCase):

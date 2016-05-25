@@ -6,6 +6,8 @@ from models.book import Book
 from models.log import ReadingLog
 from models.user import User
 from dao.book import find_book_with_name
+from dao.user import user_by_user_id
+from dao.user_book import user_book_from_book_name
 from db import db
 
 
@@ -32,8 +34,7 @@ def create_book(name, author, category):
 
 def create_log(book_name, user_id):
     log = ReadingLog()
-    log.user = user_id;
-    log.book = find_book_with_name(book_name).id
+    log.user = user_id
     log.pages = 30;
     log.date = "12/12/2014"
     db.session.add(log)

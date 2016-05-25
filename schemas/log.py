@@ -1,5 +1,3 @@
-
-
 from ma import ma
 from models.log import ReadingLog
 from marshmallow import fields
