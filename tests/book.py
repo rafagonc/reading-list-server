@@ -22,8 +22,8 @@ class TestAppendBook(unittest.TestCase):
 
     def setUp(self):
         create_user("1")
-        self.args = {"user_id" : "1", "books" : [{"name" : "Book", "author" : "Barney", "category" : "Romance","pages" : 432, "pages_read" : 234, "snippet" : "daosdaopskdaopsdksaopsk", "rate" : 3.2, "cover_url" : "" },
-                                {"name" : "Book", "pages" : 432, "author" : "Barney", "category" : "Romance", "pages_read" : 234, "snippet" : "daosdaopskdaopsdksaopsk", "rate" : 3.2, "cover_url" : ""}
+        self.args = {"user_id" : "1", "books" : [{"name" : "Book", "author" : "Barney", "category" : "Romance","pages" : 432, "pages_read" : 234, "snippet" : "daosdaopskdaopsdksaopsk", "rate" : 3.2, "cover_url" : "", "notes" : [{"text" : "rdaopsdkaopsdk"}]},
+                                {"name" : "Book", "pages" : 432, "author" : "Barney", "category" : "Romance", "pages_read" : 234, "snippet" : "daosdaopskdaopsdksaopsk", "rate" : 3.2, "cover_url" : "", "notes" : [{"text" : "rdaopsdkaopsdk"}, {"text" :  "kdoaskdoa"}]}
                                 ]}
 
     def test_create_books(self):
@@ -58,7 +58,7 @@ class TestUpdateBook(unittest.TestCase):
         self.user_book = UserBooks(user, book)
         db.session.add(self.user_book)
         db.session.commit()
-        self.args = {"user_id" : user.user_id, "pages_read" : 123, "pages" : 321, "book_id" : self.user_book.id}
+        self.args = {"user_id" : user.user_id, "pages_read" : 123, "pages" : 321, "book_id" : self.user_book.id, "notes" : [{"id" : "1", "text" : "rafael"}]}
 
     def test(self):
         resposne = update_book_impl(self.args)

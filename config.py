@@ -6,7 +6,8 @@ class Config(object):
     DEBUG = True
     TESTING = False
     SECRET_KEY = 'secret'
-    SQLALCHEMY_DATABASE_URI = os.environ['HEROKU_POSTGRESQL_PUCE_URL']
+    #SQLALCHEMY_DATABASE_URI = os.environ['HEROKU_POSTGRESQL_PUCE_URL']
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class DevelopmentConfig(Config):

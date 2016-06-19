@@ -38,7 +38,6 @@ class TestListLog(unittest.TestCase):
 
     def test(self):
         response = list_logs_impl(self.args)
-        print(response)
         assert response['success'] is True
         assert response['data'][0] is not None
 
