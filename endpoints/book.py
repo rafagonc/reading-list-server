@@ -77,13 +77,9 @@ def append_book_impl(args):
                 user_book.loved = book_dict['loved']
                 user_book.snippet = book_dict['snippet']
                 user_book.cover_url = book_dict['cover_url']
-                if book_dict.has_key('notes'):
-                    user_book.add_notes(book_dict['notes'])
             except Exception as e:
                 user_book = UserBooks(user, book,  book_dict['pages_read'],  book_dict['pages'], book_dict['rate'], book_dict["snippet"])
                 user_book.cover_url = book_dict['cover_url']
-                if book_dict.has_key('notes'):
-                    user_book.add_notes(book_dict['notes'])
                 db.session.add(user_book)
             db.session.commit()
             books.append(user_book)
@@ -166,9 +162,6 @@ def update_book_impl(args):
 
         if args.has_key("loved") and args['loved'] is not None:
             book.loved = args['loved']
-
-        if args.has_key("notes") and args['notes'] is not None:
-            book.add_notes(args['notes'])
 
         db.session.commit()
         return Response(True, "Book Updated", UserBookSchema().dumps(book).data).output()
