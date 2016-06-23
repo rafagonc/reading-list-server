@@ -7,6 +7,7 @@ with app.app_context():
     from tests.book import *
     from tests.user import *
     from tests.log import *
+    from tests.note import *
     import models
     db.drop_all()
     db.create_all()

@@ -1,4 +1,4 @@
-__author__ = 'rafagonc'
+r__author__ = 'rafagonc'
 
 import requests
 import psycopg2
