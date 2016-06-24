@@ -11,6 +11,7 @@ from .user import UserEndpoint
 from flask import Blueprint
 from .api import api
 
+
 def create_blueprint():
     api.init_app(blueprint)
     api.add_resource(RatingBookRequest, '/rating')

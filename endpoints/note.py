@@ -6,6 +6,7 @@ from models.note import Note
 from response import Response
 from schemas.note import NoteSchema
 from validator.note import validate
+from dao.user_book import user_by_user_id
 
 class NoteEndpoint(Resource):
     def post(self):
@@ -30,7 +31,7 @@ def create_note():
 def create_note_impl(args):
     try:
         validate(args)
-        note = Note(user_book_from_book_id(args["book_id"],args['user_id']), args['text'])
+        note = Note(user_book_from_book_id(args["book_id"], user_by_user_id(args['user_id'])).id, args['text'])
         db.session.add(note)
         db.session.commit()
         return Response(True, "", NoteSchema().dumps(note).data).output()
