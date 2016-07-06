@@ -187,8 +187,7 @@ def list_books_impl(args):
     try:
         user_books = list_user_books(args['user_id'])
         for user_book in user_books:
-            if len(user_book.notes) > 0:
-                print(user_book.notes)
+            print(user_book.notes)
         return Response(True, "Book Listed", UserBookSchema(many=True).dumps(user_books).data).output()
     except Exception as e:
         return Response(False, str(e), None).output()
