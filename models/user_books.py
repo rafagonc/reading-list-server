@@ -33,6 +33,10 @@ class UserBooks(db.Model):
     def book(self):
         return Book.query.filter(Book.id == self.book_id).first()
 
+    @hybrid_property
+    def notes_list(self):
+        return self.notes.all()
+
     def add_notes(self, notes_dicts):
         for note_dict in notes_dicts:
             note = None
