@@ -10,4 +10,4 @@ class UserBookSchema(ma.ModelSchema):
     notes = fields.Nested(NoteSchema, many=True)
 
     class Meta:
-        fields = ('pages', "pages_read", "snippet", "rate", "book", "id", "loved", "cover_url", 'notes')
+        fields = ('pages', "pages_read", "snippet", "rate", "book", "id", "loved", "cover_url", 'notes_list')
