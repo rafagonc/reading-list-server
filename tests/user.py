@@ -1,9 +1,7 @@
-
-
 import unittest
-import json
 from helper import create_user
 from endpoints.user import create_new_user_impl, get_user_impl, update_user_impl
+
 
 class TestCreateUser(unittest.TestCase):
     args = {}
@@ -34,7 +32,7 @@ class TestUpdateUser(unittest.TestCase):
 
     def setUp(self):
         self.user = create_user("87656")
-        self.args = {"name" : "Rafael2" , "auth_token" : "123", "auth_token_secret" : "1234567890", "user_id" : "87656"}
+        self.args = {"name" : "Rafael2" , "auth_token" : "123", "auth_token_secret" : "3123123", "user_id" : "87656"}
 
     def test_create_user(self):
         response = update_user_impl(self.args)

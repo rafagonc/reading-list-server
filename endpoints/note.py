@@ -50,8 +50,6 @@ def update_note():
 def update_note_impl(args):
     try:
         note = note_from_id(args['note_id'])
-        print(args)
-        print(note)
         note.text = args['text']
         db.session.commit()
         return Response(True, "", NoteSchema().dumps(note).data).output()

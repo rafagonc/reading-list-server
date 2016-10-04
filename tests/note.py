@@ -11,10 +11,10 @@ class TestCreateNote(unittest.TestCase):
 
     def setUp(self):
         book = create_book("Clean Code1", "Roberto", "Computer")
-        user = create_user("123121")
+        user = create_user("23123")
         self.user_book = create_user_book(user, book)
         self.args['book_id'] = book.id
-        self.args['user_id'] = user.id
+        self.args['user_id'] = user.user_id
         self.args['text'] = "Teste"
 
     def tearDown(self):
