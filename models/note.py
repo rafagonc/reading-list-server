@@ -6,6 +6,7 @@ from dao.category import find_category_with_name
 from sqlalchemy.sql import func
 from sqlalchemy import desc
 
+
 class Note(db.Model):
     __tablename__ = "red_note"
     id = Column(Integer, primary_key=True)
